@@ -1,0 +1,7 @@
+
+The Load Assignment Project developes a number of screens usefule for truckers to save load specific information on their computers or mobile devices as a replacement for scraps of paper.
+
+Currently: 3/20/2014
+	- Screens for general load information; shipper specific information, consignee information; pick and drop information; and fuel stop information have been created.
+	- The page 1 (general load information) data can be collected, sent, and stored on a server.
+	- Next step is to retrieve the general load information from the server and redisplay, modify, store modifications multiple times.

@@ -80,6 +80,7 @@
     function initVariables(evnt) {
       var theEvent = evnt ? evnt : window.event;
       var target = theEvent.target ? theEvent.target : theEvent.srcElement;
+//  generate one week of possible delivery dates starting with today's date
       var selectDayFlds = document.getElementById("selectDayOpts").options;
       var oD = new Date(todaysYear, todaysMonth-1, 1);
       oD.od=oD.getDay()+1;
@@ -290,7 +291,7 @@
     </script>
   </head>
   <body>
-    <form id="loadForm" action="LoadAssignmentAction.php" method="post">
+    <form id="loadForm" action="PHP_FormCheck.php" method="post">
       <table border="0" align="center" width="80%">
         <tr><td colspan="6" id="pageTitle">Load Assignment Home</td></tr>
         <tr>
@@ -323,7 +324,7 @@
                 <td align="center">
                   <input id="varNwLd" type="hidden" name="newLoad" value="new" />
                   <input id="ldStrtDt" type="hidden" name="loadStartDate" />
-                  <input type="submit" name="actionButton" value="New/Find" tabindex="2" />
+                  <input type="submit" name="actionButton1" value="New/Find" tabindex="2" />
                 </td>
               </tr>
               <tr>
@@ -478,7 +479,7 @@
         </tr>
         <tr>
           <td colspan="6" align="center">
-            <input type="submit" name="actionButton" value="Add Load Assignment" tabindex="16" />
+            <input type="submit" name="actionButton2" value="Add Load Assignment" tabindex="16" />
           </td>
         </tr>
       </table>

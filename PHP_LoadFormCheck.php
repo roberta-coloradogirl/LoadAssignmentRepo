@@ -1,5 +1,5 @@
 <?php
-# Modified: on Apr 04, 2014 13:12 AM  - 
+# Modified: on Apr 04, 2014 13:12 AM  -
 # Modified: on Mar 20, 2014 13:17 AM
 # Modified: on Jan 29, 2014 11:52 AM
 # Created: on Mar 20, 2012 11:04 AM
@@ -92,13 +92,13 @@ else $totalMiles = "NOT_SET";
 # else open the file
 # PROBLEM - what about modifications?
 $dbLoadRecData = array( "loadNumber"=>" ","loadActionFlag"=>"","actionButton1"=>"","actionButton2"=>"",
-   "loadStartDate"=>"","loadDeliveryDate"=>"",
-   "brokerName"=>"","brokerLoadID"=>"","brokerPhone"=>"",
-   "loadTemp"=>"","reeferPretripped"=>"","sealMatches"=>"","tempMatches"=>"",
-   "emptyPaid"=>"","loadedPaid"=>"","totalPaid"=>"",
-   "endingEmpty"=>"","beginingEmpty"=>"","endingLoaded"=>"","beginingLoaded"=>"",
-   "emptyActual"=>"","loadedActual"=>"","totalActual"=>"",
-"emptyVariance"=>"","loadedVariance"=>"","totalVariance"=>"" );
+                                   "loadStartDate"=>"","loadDeliveryDate"=>"",
+                                   "brokerName"=>"","brokerLoadID"=>"","brokerPhone"=>"",
+                                   "loadTemp"=>"","reeferPretripped"=>"","sealMatches"=>"","tempMatches"=>"",
+                                   "emptyPaid"=>"","loadedPaid"=>"","totalPaid"=>"",
+                                   "endingEmpty"=>"","beginingEmpty"=>"","endingLoaded"=>"","beginingLoaded"=>"",
+                                   "emptyActual"=>"","loadedActual"=>"","totalActual"=>"",
+                                   "emptyVariance"=>"","loadedVariance"=>"","totalVariance"=>"" );
 $dbRec = "";
 $fileName = "";
 $fileStatus = "Initiate file processing. <br />";
@@ -107,190 +107,197 @@ $fileStatus = "Initiate file processing. <br />";
 # else open the file for modification
 # Note:  - modifications are because incoming data is considered as not the same as existing data?
 if ( ($loadNumber == "ERROR") || ($loadNumber == "") ) {
-   echo "  *** A Loadnumber is required. Processing is terminated.<br />";
-   $loadNumber = "";
-   $loadActionFlag = "new";
-   $actionButton1 = "New/Find";
-   $actionButton2 = "Add/Clear";
-} else {
-   $fileName = "loadData/testLoad_".$loadNumber.".txt";
+    echo "  *** A Loadnumber is required. Processing is terminated.<br />";
+    $loadNumber = "";
+    $loadActionFlag = "new";
+    $actionButton1 = "New/Find";
+    $actionButton2 = "Add/Clear";
+}
+else {
+    $fileName = "loadData/testLoad_".$loadNumber.".txt";
 #     echo "File: ".$fileName."<br />";
 #     echo "  Status: ".$fileStatus;
 #     echo count($dbLoadRecData)." elements in dbLoadRecData.<br />";
 #     print_r(error_get_last());
-   if ( file_exists($fileName) ) {
-      echo "File: ".$fileName." exists.<br />";
+    if ( file_exists($fileName) ) {
+        echo "File: ".$fileName." exists.<br />";
 #  files exists so we have either request to modify the current load or a request to find another load. Which
 #  course of action depends on the variables set by the submit buttons; actionButton1 or actionButton2; and
 #  the loadActionFlag
-      if ( $fH = fopen($fileName, "r+") ) {
-         $fileStatus = " File ".$fileName." opened in READ mode.<br />";
-         echo $fileStatus;
-         if ( ($loadActionFlag == "new") && ($actionButton1 == "New/Find") ) {
-            $loadActionFlag = "find";
-            $actionButton1 = "Find";
-            $actionButton2 = "Change";
-         } elseif ( ($loadActionFlag == "new") && ($actionButton2 == "Add/Clear") ) {
-            $loadActionFlag = "change";
-            $actionButton1 = "Find";
-            $actionButton2 = "Change";
-         }
+        if ( $fH = fopen($fileName, "r+") ) {
+            $fileStatus = " File ".$fileName." opened in READ mode.<br />";
+            echo $fileStatus;
+            if ( ($loadActionFlag == "new") && ($actionButton1 == "New/Find") ) {
+                $loadActionFlag = "find";
+                $actionButton1 = "Find";
+                $actionButton2 = "Change";
+            }
+            elseif ( ($loadActionFlag == "new") && ($actionButton2 == "Add/Clear") ) {
+                $loadActionFlag = "change";
+                $actionButton1 = "Find";
+                $actionButton2 = "Change";
+            }
 #  if file data item is not blank change it
-         if ( $dbRec = fread($fH,1024) ) {
-            $fileStatus = " File ".$fileName." data file is read.<br />";
+            if ( $dbRec = fread($fH,1024) ) {
+                $fileStatus = " File ".$fileName." data file is read.<br />";
 #           echo "Read ",strlen($dbRec)." characters.";
-            $dbRecArray = explode("\t",$dbRec,count($dbLoadRecData));
-            $idx = 0;
-            foreach ($dbLoadRecData as $parm=>$parmValue) {
-               switch ($parm) {
-                  case "loadNumber":
-                     if( $loadActionFlag == "find" ) $loadNumber = $dbLoadRecData[$parm];
-                     else $dbLoadRecData[$parm] = $loadNumber;
-                  break;
-                 case "loadActionFlag":
+                $dbRecArray = explode("\t",$dbRec,count($dbLoadRecData));
+                $idx = 0;
+                foreach ($dbLoadRecData as $parm=>$parmValue) {
+                    switch ($parm) {
+                        case "loadNumber":
+                            if( $loadActionFlag == "find" ) $loadNumber = $dbLoadRecData[$parm];
+                            else $dbLoadRecData[$parm] = $loadNumber;
+                        break;
+                        case "loadActionFlag":
 #                  if( $dbRecArray[$idx] != $loadActionFlag ) {
 #                     $dbLoadRecData[$parm] = $loadActionFlag;
 #                  }
-                  break;
-                  case "actionButton1":
-                  if( $dbRecArray[$idx] != $actionButton1 ) {
-                     $dbLoadRecData[$parm] = $actionButton1;
-                  }
-                  break;
-                  case "actionButton2":
-                  if( $dbRecArray[$idx] != $actionButton2) {
-                     $dbLoadRecData[$parm] = $actionButton2;
-                  }
-                  break;
-                  case "loadStartDate":
-                     if( $dbRecArray[$idx] != $loadStartDate ) $dbLoadRecData[$parm] = $loadStartDate;
-                  break;
-                  case "loadDeliveryDate":
-                     if( $dbRecArray[$idx] != $loadDeliveryDate ) $dbLoadRecData[$parm] = $loadDeliveryDate;
-                  break;
-                  case "brokerName":
-                     if( $dbRecArray[$idx] != $brokerName ) $dbLoadRecData[$parm] = $brokerName;
-                  break;
-                  case "brokerLoadID":
-                     if( $dbRecArray[$idx] != $brokerLoadID ) $dbLoadRecData[$parm] = $brokerLoadID;
-                  break;
-                  case "brokerPhone":
-                     if( $dbRecArray[$idx] != $brokerPhone ) $dbLoadRecData[$parm] = $brokerPhone;
-                  break;
-                  case "loadTemp":
-                     if( $dbRecArray[$idx] != $loadTemp ) $dbLoadRecData[$parm] = $loadTemp;
-                  break;
-                  case "reeferPretripped":
-                     if( $dbRecArray[$idx] != $reeferPretripped ) $dbLoadRecData[$parm] = $reeferPretripped;
-                  break;
-                  case "sealMatches":
-                     if( $dbRecArray[$idx] != $sealMatches ) $dbLoadRecData[$parm] = $sealMatches;
-                  break;
-                  case "tempMatches":
-                     if( $dbRecArray[$idx] != $tempMatches ) $dbLoadRecData[$parm] = $tempMatches;
-                  break;
-                  case "emptyPaid":
-                     if( $dbRecArray[$idx] != $emptyPaid ) $dbLoadRecData[$parm] = $emptyPaid;
-                  break;
-                  case "loadedPaid":
-                     if( $dbRecArray[$idx] != $loadedPaid ) $dbLoadRecData[$parm] = $loadedPaid;
-                  break;
-                  case "totalPaid":
-                     if( $dbRecArray[$idx] != $totalPaid ) $dbLoadRecData[$parm] = $totalPaid;
-                  break;
-                  case "endingEmpty":
-                     if( $dbRecArray[$idx] != $endingEmpty ) $dbLoadRecData[$parm] = $endingEmpty;
-                  break;
-                  case "beginingEmpty":
-                     if( $dbRecArray[$idx] != $beginingEmpty ) $dbLoadRecData[$parm] = $beginingEmpty;
-                  break;
-                  case "endingLoaded":
-                     if( $dbRecArray[$idx] != $endingLoaded ) $dbLoadRecData[$parm] = $endingLoaded;
-                  break;
-                  case "beginingLoaded":
-                     if( $dbRecArray[$idx] != $beginingLoaded ) $dbLoadRecData[$parm] = $beginingLoaded;
-                  break;
-                  case "emptyActual":
-                     if( $dbRecArray[$idx] != $emptyActual ) $dbLoadRecData[$parm] = $emptyActual;
-                  break;
-                  case "loadedActual":
-                     if( $dbRecArray[$idx] != $loadedActual ) $dbLoadRecData[$parm] = $loadedActual;
-                  break;
-                  case "totalActual":
-                     if( $dbRecArray[$idx] != $totalActual ) $dbLoadRecData[$parm] = $totalActual;
-                  break;
-                  case "emptyVariance":
-                     if( $dbRecArray[$idx] != $emptyVariance ) $dbLoadRecData[$parm] = $emptyVariance;
-                  break;
-                  case "loadedVariance":
-                     if( $dbRecArray[$idx] != $loadedVariance ) $dbLoadRecData[$parm] = $loadedVariance;
-                  break;
-                  case "totalVariance":
-                     if( $dbRecArray[$idx] != $totalVariance ) $dbLoadRecData[$parm] = $totalVariance;
-                  break;
-               } # end switch
-               $idx += 1;
+                        break;
+                        case "actionButton1":
+                            if( $dbRecArray[$idx] != $actionButton1 ) {
+                                $dbLoadRecData[$parm] = $actionButton1;
+                            }
+                        break;
+                        case "actionButton2":
+                            if( $dbRecArray[$idx] != $actionButton2) {
+                                $dbLoadRecData[$parm] = $actionButton2;
+                            }
+                        break;
+                        case "loadStartDate":
+                            if( $dbRecArray[$idx] != $loadStartDate ) $dbLoadRecData[$parm] = $loadStartDate;
+                        break;
+                        case "loadDeliveryDate":
+                            if( $dbRecArray[$idx] != $loadDeliveryDate ) $dbLoadRecData[$parm] = $loadDeliveryDate;
+                        break;
+                        case "brokerName":
+                            if( $dbRecArray[$idx] != $brokerName ) $dbLoadRecData[$parm] = $brokerName;
+                        break;
+                        case "brokerLoadID":
+                            if( $dbRecArray[$idx] != $brokerLoadID ) $dbLoadRecData[$parm] = $brokerLoadID;
+                        break;
+                        case "brokerPhone":
+                            if( $dbRecArray[$idx] != $brokerPhone ) $dbLoadRecData[$parm] = $brokerPhone;
+                        break;
+                        case "loadTemp":
+                            if( $dbRecArray[$idx] != $loadTemp ) $dbLoadRecData[$parm] = $loadTemp;
+                        break;
+                        case "reeferPretripped":
+                            if( $dbRecArray[$idx] != $reeferPretripped ) $dbLoadRecData[$parm] = $reeferPretripped;
+                        break;
+                        case "sealMatches":
+                            if( $dbRecArray[$idx] != $sealMatches ) $dbLoadRecData[$parm] = $sealMatches;
+                        break;
+                        case "tempMatches":
+                            if( $dbRecArray[$idx] != $tempMatches ) $dbLoadRecData[$parm] = $tempMatches;
+                        break;
+                        case "emptyPaid":
+                            if( $dbRecArray[$idx] != $emptyPaid ) $dbLoadRecData[$parm] = $emptyPaid;
+                        break;
+                        case "loadedPaid":
+                            if( $dbRecArray[$idx] != $loadedPaid ) $dbLoadRecData[$parm] = $loadedPaid;
+                        break;
+                        case "totalPaid":
+                            if( $dbRecArray[$idx] != $totalPaid ) $dbLoadRecData[$parm] = $totalPaid;
+                        break;
+                        case "endingEmpty":
+                            if( $dbRecArray[$idx] != $endingEmpty ) $dbLoadRecData[$parm] = $endingEmpty;
+                        break;
+                        case "beginingEmpty":
+                            if( $dbRecArray[$idx] != $beginingEmpty ) $dbLoadRecData[$parm] = $beginingEmpty;
+                        break;
+                        case "endingLoaded":
+                            if( $dbRecArray[$idx] != $endingLoaded ) $dbLoadRecData[$parm] = $endingLoaded;
+                        break;
+                        case "beginingLoaded":
+                            if( $dbRecArray[$idx] != $beginingLoaded ) $dbLoadRecData[$parm] = $beginingLoaded;
+                        break;
+                        case "emptyActual":
+                            if( $dbRecArray[$idx] != $emptyActual ) $dbLoadRecData[$parm] = $emptyActual;
+                        break;
+                        case "loadedActual":
+                            if( $dbRecArray[$idx] != $loadedActual ) $dbLoadRecData[$parm] = $loadedActual;
+                        break;
+                        case "totalActual":
+                            if( $dbRecArray[$idx] != $totalActual ) $dbLoadRecData[$parm] = $totalActual;
+                        break;
+                        case "emptyVariance":
+                            if( $dbRecArray[$idx] != $emptyVariance ) $dbLoadRecData[$parm] = $emptyVariance;
+                        break;
+                        case "loadedVariance":
+                            if( $dbRecArray[$idx] != $loadedVariance ) $dbLoadRecData[$parm] = $loadedVariance;
+                        break;
+                        case "totalVariance":
+                            if( $dbRecArray[$idx] != $totalVariance ) $dbLoadRecData[$parm] = $totalVariance;
+                        break;
+                    } # end switch
+                    $idx += 1;
 # echo $parm."=".$dbLoadRecData[$parm]." <br />";
-            } # end foreach
+                } # end foreach
 #put modified data back in storage
-            $dbRec = "";
-            rewind($fH);
-            $dbRec = sprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\r\n",
-                                   $loadNumber,$loadActionFlag,$actionButton1,$actionButton2,
-                                   $loadStartDate,$loadDeliveryDate,
-                                   $brokerName,$brokerLoadID,$brokerPhone,
-                                   $loadTemp,$reeferPretripped,$sealMatches,$tempMatches,
-                                   $emptyPaid,$loadedPaid,$totalPaid,
-                                   $endingEmpty,$beginingEmpty,$endingLoaded,$beginingLoaded,
-                                   $emptyActual,$loadedActual,$totalActual,
-                                   $emptyVariance,$loadedVariance,$totalVariance," ");
-            fwrite($fH,$dbRec);
-            echo "Wrote ",strlen($dbRec)." characters.";
-            fclose($fH);
-            } else {
-            $fileStatus = "FAILED reading data file.<br />";
-            print_r(error_get_last());
-         }
-         echo $fileStatus;
+                $dbRec = "";
+                rewind($fH);
+                $dbRec = sprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\r\n",
+                                       $loadNumber,$loadActionFlag,$actionButton1,$actionButton2,
+                                       $loadStartDate,$loadDeliveryDate,
+                                       $brokerName,$brokerLoadID,$brokerPhone,
+                                       $loadTemp,$reeferPretripped,$sealMatches,$tempMatches,
+                                       $emptyPaid,$loadedPaid,$totalPaid,
+                                       $endingEmpty,$beginingEmpty,$endingLoaded,$beginingLoaded,
+                                       $emptyActual,$loadedActual,$totalActual,
+                                       $emptyVariance,$loadedVariance,$totalVariance," ");
+                fwrite($fH,$dbRec);
+                echo "Wrote ",strlen($dbRec)." characters.";
+                fclose($fH);
+            }
+            else {
+                $fileStatus = "FAILED reading data file.<br />";
+                print_r(error_get_last());
+            }
+            echo $fileStatus;
 #         fclose($fH);
-         } else {
-         $fileStatus = " File ".$fileName." could not be opened.<br />";
-         echo $fileStatus;
-         print_r(error_get_last());
-      }
-      } else {   #  file does not exist -  this is a New Load
-      if ( $fH = fopen($fileName, "w+") )  {
-         $fileStatus = " File ".$fileName." is opened with write mode. <br />";
-         if ( $loadActionFlag == "new" ) {
-            $loadActionFlag = "Find";
-            $actionButton1 = "Find";
-            $actionButton2 = "Modify/Change";
+        }
+        else {
+            $fileStatus = " File ".$fileName." could not be opened.<br />";
             echo $fileStatus;
-            $dbRec = "";
-            $dbRec = sprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\r\n",
-                                   $loadNumber,$loadActionFlag,$actionButton1,$actionButton2,
-                                   $loadStartDate,$loadDeliveryDate,
-                                   $brokerName,$brokerLoadID,$brokerPhone,
-                                   $loadTemp,$reeferPretripped,$sealMatches,$tempMatches,
-                                   $emptyPaid,$loadedPaid,$totalPaid,
-                                   $endingEmpty,$beginingEmpty,$endingLoaded,$beginingLoaded,
-                                   $emptyActual,$loadedActual,$totalActual,
-                                   $emptyVariance,$loadedVariance,$totalVariance," ");
-            fwrite($fH,$dbRec);
-            echo "Wrote ",strlen($dbRec)." characters.";
-            fclose($fH);
-            $fileStatus = " File ".$fileName." new data is added. <br />";
-            echo $fileStatus;
-            } else {
-            echo " File: ".$fileName." could not be opend in w+ mode. <br />";
             print_r(error_get_last());
-         }
-         } else {
-         echo " File: ".$fileName." NOT opened. <br />";
-         print_r(error_get_last());
-      }
+        }
+    }
+    else {   #  file does not exist -  this is a New Load
+        if ( $fH = fopen($fileName, "w+") )  {
+            $fileStatus = " File ".$fileName." is opened with write mode. <br />";
+            if ( $loadActionFlag == "new" ) {
+                $loadActionFlag = "Find";
+                $actionButton1 = "Find";
+                $actionButton2 = "Modify/Change";
+                echo $fileStatus;
+                $dbRec = "";
+                $dbRec = sprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\r\n",
+                                       $loadNumber,$loadActionFlag,$actionButton1,$actionButton2,
+                                       $loadStartDate,$loadDeliveryDate,
+                                       $brokerName,$brokerLoadID,$brokerPhone,
+                                       $loadTemp,$reeferPretripped,$sealMatches,$tempMatches,
+                                       $emptyPaid,$loadedPaid,$totalPaid,
+                                       $endingEmpty,$beginingEmpty,$endingLoaded,$beginingLoaded,
+                                       $emptyActual,$loadedActual,$totalActual,
+                                       $emptyVariance,$loadedVariance,$totalVariance," ");
+                fwrite($fH,$dbRec);
+                echo "Wrote ",strlen($dbRec)." characters.";
+                fclose($fH);
+                $fileStatus = " File ".$fileName." new data is added. <br />";
+                echo $fileStatus;
+            }
+            else {
+                echo " File: ".$fileName." could not be opend in w+ mode. <br />";
+                print_r(error_get_last());
+            }
+        }
+        else {
+            echo " File: ".$fileName." NOT opened. <br />";
+            print_r(error_get_last());
+        }
 #      fclose($fH);
-   }
+    }
 }
 echo <<<_END
 <html lang="en-US">

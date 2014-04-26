@@ -269,7 +269,7 @@ if ( ($loadNumber == "ERROR") || ($loadNumber == "") ) {
          $fileStatus = " File ".$fileName." could not be opened.<br />";
 #         echo $fileStatus;
          print_r(error_get_last());
-      }
+         }
       } else {  # file does not exist -  this is a New Load
       if ( $fH = fopen($fileName, "w+") )  {
          $fileStatus = " File ".$fileName." is opened with write mode. <br />";

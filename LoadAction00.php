@@ -792,20 +792,20 @@ function calculateOdoMiles() {
               <tr>
                 <td id="titleCell" align="center">Empty</td>
                 <td align="center"><input type="number" size="8" name="emptyPaid" value=$emptyPaid tabindex="11" onblur="checkPaidMiles(this)" /></td>
-                <td id="computedCell" align="center"><input type="text" size="8" name="emptyActual" value="$emptyActual" readonly /></td>
-                <td id="computedCell" align="center"><input type="text" size="8" name="emptyVariance" value=$emptyVariance readonly /></td>
+                <td id="computedCell" align="center"><output type="text" size="8" name="emptyActual" value="$emptyActual" ></output></td>
+                <td id="computedCell" align="center"><outputtype="text" size="8" name="emptyVariance" value=$emptyVariance ></output></td>
               </tr>
               <tr>
                 <td id="titleCell" align="center">Loaded</td>
                 <td align="center"><input type="number" size="8" name="loadedPaid" value=$loadedPaid tabindex="12" onblur="checkPaidMiles(this)" /></td>
-                <td id="computedCell" align="center"><input type="text" size="8" name="loadedActual" value=$loadedActual readonly /></td>
-                <td id="computedCell" align="center"><input type="text" size="8" name="loadedVariance" value=$loadedVariance readonly /></td>
+                <td id="computedCell" align="center"><output type="text" size="8" name="loadedActual" value=$loadedActual ></output></td>
+                <td id="computedCell" align="center"><output type="text" size="8" name="loadedVariance" value=$loadedVariance ></output></td>
               </tr>
               <tr>
                 <td id="titleCell" align="center">Total</td>
-                <td id="computedCell" align="center"><input type="text" size="8" name="totalPaid" value=$totalPaid readonly /></td>
-                <td id="computedCell" align="center"><input type="text" size="8" name="totalActual" value=$totalActual readonly /></td>
-                <td id="computedCell" align="center"><input type="text" size="8" name="totalVariance" value=$totalVariance readonly /></td>
+                <td id="computedCell" align="center"><output type="text" size="8" name="totalPaid" value=$totalPaid ></output></td>
+                <td id="computedCell" align="center"><output type="text" size="8" name="totalActual" value=$totalActual ></output></td>
+                <td id="computedCell" align="center"><output type="text" size="8" name="totalVariance" value=$totalVariance ></output></td>
               </tr>
             </table>
           </td>
@@ -826,14 +826,14 @@ function calculateOdoMiles() {
               <tr>
                 <td id="titleCell" align="center">Start Odo</td>
                 <td align="center"><input type="number" size="8" name="beginingEmpty" value =$beginingEmpty tabindex="13" onblur="checkOdoMiles(this)" /></td>
-                <td id="computedCell" align="center"><input type="number" size="8" name="beginingLoaded" value =$beginingLoaded readonly /></td>
+                <td id="computedCell" align="center"><output type="number" size="8" name="beginingLoaded" value =$beginingLoaded readonly /></output></td>
                 <td id="emptyCell">&nbsp;</td>
               </tr>
               <tr>
                 <td id="titleCell" align="center">Total Miles</td>
-                <td id="computedCell" align="center"><input type="text" size="8" name="totalEmptyMiles" value ="$totalEmptyMiles" readonly" /></td>
-                <td id="computedCell" align="center"><input type="text" size="8" name="totalLoadedMiles" value ="$totalLoadedMiles" readonly /></td>
-                <td id="computedCell" align="center"><input type="text" size="8" name="totalMiles" value =$totalMiles readonly /></td>
+                <td id="computedCell" align="center"><output type="text" size="8" name="totalEmptyMiles" value ="$totalEmptyMiles" readonly" /></output></td>
+                <td id="computedCell" align="center"><output type="text" size="8" name="totalLoadedMiles" value ="$totalLoadedMiles" readonly /></output></td>
+                <td id="computedCell" align="center"><output type="text" size="8" name="totalMiles" value =$totalMiles readonly /></output></td>
               </tr>
             </table>
           </td>

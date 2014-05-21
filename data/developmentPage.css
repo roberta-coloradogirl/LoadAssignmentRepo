@@ -6,10 +6,10 @@ body {
    background-color:#EBEBEB;
    
    }
-a:link {color:#CC0000;}       /* unvisited link */
-a:visited {color:#008F8F;}   /* visited link */
-a:hover {color:#4E5A65;}    /* mouse over link */
-a:active {color:#CC00CC;}   /* selected link */  
+a:link {color:#CC0000;}       /* unvisited link  */
+a:visited {color:#008F8F;}    /* visited link    */
+a:hover {color:#4E5A65;}      /* mouse over link */
+a:active {color:#CC00CC;}     /* selected link   */  
   
 #header {
    width:95%;
